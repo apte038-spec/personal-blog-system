@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1800" height="1170" viewBox="0 0 1800 1170" role="img" aria-labelledby="title desc">
+  <title id="title">个人博客系统用例图</title>
+  <desc id="desc">游客、普通用户和管理员逐级继承权限，每类角色分别连接八项用例。</desc>
+  <style>
+    text { font-family: "Microsoft YaHei", "Noto Sans CJK SC", "PingFang SC", sans-serif; fill: #152b40; }
+    .caption { font-size: 28px; font-weight: 700; text-anchor: middle; }
+    .subtitle { font-size: 17px; fill: #5a6b7d; text-anchor: middle; }
+    .boundary { fill: #ffffff; stroke: #344b61; stroke-width: 2.5; }
+    .boundary-label { font-size: 23px; font-weight: 700; fill: #253d54; }
+    .divider { stroke: #d9e2ea; stroke-width: 2; stroke-dasharray: 7 8; }
+    .group-title { font-size: 21px; font-weight: 700; text-anchor: middle; fill: #264766; }
+    .usecase { fill: #f5f9fc; stroke: #52718e; stroke-width: 2; }
+    .usecase-label { font-size: 20px; dominant-baseline: middle; text-anchor: middle; }
+    .association { fill: none; stroke: #66819a; stroke-width: 2; stroke-linejoin: round; }
+    .actor { fill: none; stroke: #22394f; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .actor-label { fill: #152b40; stroke: #ffffff; stroke-width: 8; paint-order: stroke; font-size: 22px; font-weight: 700; text-anchor: middle; }
+    .inheritance { fill: none; stroke: #344b61; stroke-width: 2.5; }
+    .inheritance-label { font-size: 16px; text-anchor: middle; fill: #5a6b7d; }
+  </style>
+  <defs>
+    <marker id="generalization" viewBox="0 0 20 20" refX="18" refY="10" markerWidth="16" markerHeight="16" orient="auto">
+      <path d="M18 10L2 2V18Z" fill="#ffffff" stroke="#344b61" stroke-width="2"/>
+    </marker>
+  </defs>
+  <rect width="1800" height="1170" fill="#ffffff"/>
+  <text class="caption" x="900" y="47">图 2-1 个人博客系统用例图</text>
+  <text class="subtitle" x="900" y="79">角色权限逐级扩展：游客 → 普通用户 → 管理员</text>
+  <path class="inheritance" d="M852 119H420" marker-end="url(#generalization)"/>
+  <path class="inheritance" d="M1382 119H950" marker-end="url(#generalization)"/>
+  <g class="actor">
+    <circle cx="370" cy="105" r="17"/>
+    <path d="M370 122V170 M337 140L370 132L403 140 M370 170L343 205 M370 170L397 205"/>
+    <text x="370" y="239" class="actor-label">游客</text>
+  </g>
+<g class="actor">
+    <circle cx="900" cy="105" r="17"/>
+    <path d="M900 122V170 M867 140L900 132L933 140 M900 170L873 205 M900 170L927 205"/>
+    <text x="900" y="239" class="actor-label">普通用户</text>
+  </g>
+<g class="actor">
+    <circle cx="1430" cy="105" r="17"/>
+    <path d="M1430 122V170 M1397 140L1430 132L1463 140 M1430 170L1403 205 M1430 170L1457 205"/>
+    <text x="1430" y="239" class="actor-label">管理员</text>
+  </g>
+  <rect class="boundary" x="95" y="265" width="1610" height="815" rx="12"/>
+  <text class="boundary-label" x="420" y="300">个人博客系统</text>
+  <path class="divider" d="M635 318V1054 M1165 318V1054"/>
+  <text class="group-title" x="370" y="337">公开浏览与账号入口</text>
+    <path class="association" d="M370 206V282H155V1000"/>
+    <path class="association" d="M155 412H180"/>
+      <ellipse class="usecase" cx="370" cy="412" rx="190" ry="31"/>
+      <text class="usecase-label" x="370" y="413">浏览首页</text>
+<path class="association" d="M155 496H180"/>
+      <ellipse class="usecase" cx="370" cy="496" rx="190" ry="31"/>
+      <text class="usecase-label" x="370" y="497">查询文章</text>
+<path class="association" d="M155 580H180"/>
+      <ellipse class="usecase" cx="370" cy="580" rx="190" ry="31"/>
+      <text class="usecase-label" x="370" y="581">查看文章详情</text>
+<path class="association" d="M155 664H180"/>
+      <ellipse class="usecase" cx="370" cy="664" rx="190" ry="31"/>
+      <text class="usecase-label" x="370" y="665">查看关于我</text>
+<path class="association" d="M155 748H180"/>
+      <ellipse class="usecase" cx="370" cy="748" rx="190" ry="31"/>
+      <text class="usecase-label" x="370" y="749">查看留言板</text>
+<path class="association" d="M155 832H180"/>
+      <ellipse class="usecase" cx="370" cy="832" rx="190" ry="31"/>
+      <text class="usecase-label" x="370" y="833">注册</text>
+<path class="association" d="M155 916H180"/>
+      <ellipse class="usecase" cx="370" cy="916" rx="190" ry="31"/>
+      <text class="usecase-label" x="370" y="917">登录</text>
+<path class="association" d="M155 1000H180"/>
+      <ellipse class="usecase" cx="370" cy="1000" rx="190" ry="31"/>
+      <text class="usecase-label" x="370" y="1001">重置密码</text>
+<text class="group-title" x="900" y="337">登录后的互动与个人功能</text>
+    <path class="association" d="M900 206V282H685V1000"/>
+    <path class="association" d="M685 412H710"/>
+      <ellipse class="usecase" cx="900" cy="412" rx="190" ry="31"/>
+      <text class="usecase-label" x="900" y="413">点赞或取消点赞</text>
+<path class="association" d="M685 496H710"/>
+      <ellipse class="usecase" cx="900" cy="496" rx="190" ry="31"/>
+      <text class="usecase-label" x="900" y="497">提交评论</text>
+<path class="association" d="M685 580H710"/>
+      <ellipse class="usecase" cx="900" cy="580" rx="190" ry="31"/>
+      <text class="usecase-label" x="900" y="581">提交留言</text>
+<path class="association" d="M685 664H710"/>
+      <ellipse class="usecase" cx="900" cy="664" rx="190" ry="31"/>
+      <text class="usecase-label" x="900" y="665">维护个人资料</text>
+<path class="association" d="M685 748H710"/>
+      <ellipse class="usecase" cx="900" cy="748" rx="190" ry="31"/>
+      <text class="usecase-label" x="900" y="749">上传头像</text>
+<path class="association" d="M685 832H710"/>
+      <ellipse class="usecase" cx="900" cy="832" rx="190" ry="31"/>
+      <text class="usecase-label" x="900" y="833">修改密码</text>
+<path class="association" d="M685 916H710"/>
+      <ellipse class="usecase" cx="900" cy="916" rx="190" ry="31"/>
+      <text class="usecase-label" x="900" y="917">查看喜欢的文章</text>
+<path class="association" d="M685 1000H710"/>
+      <ellipse class="usecase" cx="900" cy="1000" rx="190" ry="31"/>
+      <text class="usecase-label" x="900" y="1001">退出登录</text>
+<text class="group-title" x="1430" y="337">后台管理</text>
+    <path class="association" d="M1430 206V282H1215V1000"/>
+    <path class="association" d="M1215 412H1240"/>
+      <ellipse class="usecase" cx="1430" cy="412" rx="190" ry="31"/>
+      <text class="usecase-label" x="1430" y="413">查看后台统计</text>
+<path class="association" d="M1215 496H1240"/>
+      <ellipse class="usecase" cx="1430" cy="496" rx="190" ry="31"/>
+      <text class="usecase-label" x="1430" y="497">管理文章</text>
+<path class="association" d="M1215 580H1240"/>
+      <ellipse class="usecase" cx="1430" cy="580" rx="190" ry="31"/>
+      <text class="usecase-label" x="1430" y="581">管理用户</text>
+<path class="association" d="M1215 664H1240"/>
+      <ellipse class="usecase" cx="1430" cy="664" rx="190" ry="31"/>
+      <text class="usecase-label" x="1430" y="665">审核评论</text>
+<path class="association" d="M1215 748H1240"/>
+      <ellipse class="usecase" cx="1430" cy="748" rx="190" ry="31"/>
+      <text class="usecase-label" x="1430" y="749">审核留言</text>
+<path class="association" d="M1215 832H1240"/>
+      <ellipse class="usecase" cx="1430" cy="832" rx="190" ry="31"/>
+      <text class="usecase-label" x="1430" y="833">管理分类</text>
+<path class="association" d="M1215 916H1240"/>
+      <ellipse class="usecase" cx="1430" cy="916" rx="190" ry="31"/>
+      <text class="usecase-label" x="1430" y="917">管理标签</text>
+<path class="association" d="M1215 1000H1240"/>
+      <ellipse class="usecase" cx="1430" cy="1000" rx="190" ry="31"/>
+      <text class="usecase-label" x="1430" y="1001">管理站点配置</text>
+</svg>

@@ -1,0 +1,16 @@
+<script setup>
+import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import * as echarts from 'echarts'
+import { Document, User, ChatDotRound, View } from '@element-plus/icons-vue'
+import { adminApi } from '../../api/blog'
+
+const stats=ref({articleCount:0,userCount:0,commentCount:0,publishedCount:0,draftCount:0}),chartEl=ref(),partial=ref(false)
+let chart=null
+const cards=[{key:'articleCount',label:'文章总数',icon:Document,color:'#3b82f6'},{key:'userCount',label:'用户数量',icon:User,color:'#8b5cf6'},{key:'commentCount',label:'评论数量',icon:ChatDotRound,color:'#f59e0b'},{key:'publishedCount',label:'已发布',icon:View,color:'#10b981'}]
+function draw(data){chart=echarts.init(chartEl.value);chart.setOption({color:['#16765b'],tooltip:{trigger:'axis'},grid:{left:20,right:20,top:25,bottom:10,containLabel:true},xAxis:{type:'category',boundaryGap:false,data:data.dates,axisLine:{lineStyle:{color:'#dde3e0'}},axisLabel:{color:'#89928e'}},yAxis:{type:'value',minInterval:1,splitLine:{lineStyle:{color:'#eef1ef'}},axisLabel:{color:'#89928e'}},series:[{name:'发布文章',type:'line',smooth:true,symbolSize:8,data:data.counts,lineStyle:{width:3},areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(22,118,91,.25)'},{offset:1,color:'rgba(22,118,91,0)'}]}}}]})}
+function resize(){chart?.resize()}
+onMounted(async()=>{const [overview,trend,users,comments]=await Promise.allSettled([adminApi.overview(),adminApi.trend(),adminApi.userStats(),adminApi.commentStats()]);if(overview.status==='fulfilled')Object.assign(stats.value,overview.value);else partial.value=true;if(users.status==='fulfilled')stats.value.userCount=users.value.total||users.value.userCount||0;else partial.value=true;if(comments.status==='fulfilled')stats.value.commentCount=comments.value.total||comments.value.commentCount||0;else partial.value=true;await nextTick();draw(trend.status==='fulfilled'?trend.value:{dates:[],counts:[]});window.addEventListener('resize',resize)})
+onBeforeUnmount(()=>{window.removeEventListener('resize',resize);chart?.dispose()})
+</script>
+
+<template><div class="dashboard-page"><el-alert v-if="partial" title="用户和评论统计接口尚未接入，当前显示为 0。文章统计不受影响。" type="info" show-icon :closable="false"/><div class="metric-grid"><article v-for="item in cards" :key="item.key" class="metric-card"><div class="metric-icon" :style="{background:`${item.color}18`,color:item.color}"><el-icon><component :is="item.icon"/></el-icon></div><div><span>{{item.label}}</span><strong>{{stats[item.key]||0}}</strong></div></article></div><section class="admin-panel chart-panel"><div class="panel-title"><div><h2>内容发布趋势</h2><p>近七日发布文章数量</p></div><el-tag type="success" effect="plain">最近 7 天</el-tag></div><div ref="chartEl" class="admin-chart"></div></section><div class="dashboard-bottom"><section class="admin-panel"><div class="panel-title"><div><h2>内容状态</h2><p>文章发布完成度</p></div></div><div class="status-progress"><div><span>已发布</span><strong>{{stats.publishedCount||0}}</strong></div><el-progress :percentage="stats.articleCount?Math.round(stats.publishedCount/stats.articleCount*100):0" :stroke-width="10" color="#16765b"/><div><span>草稿箱</span><strong>{{stats.draftCount||0}}</strong></div></div></section><section class="welcome-panel"><span>ADMIN CONSOLE</span><h2>专注创作，<br>其余交给系统。</h2><router-link to="/admin/articles">开始写文章 →</router-link></section></div></div></template>

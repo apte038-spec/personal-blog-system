@@ -1,0 +1,66 @@
+@startuml
+left to right direction
+
+actor 游客 as Guest
+actor 普通用户 as User
+actor 管理员 as Admin
+
+User --|> Guest
+Admin --|> User
+
+rectangle 个人博客系统 {
+  usecase 浏览首页 as UC_Home
+  usecase 查询文章 as UC_List
+  usecase 查看文章详情 as UC_Detail
+  usecase 查看关于我 as UC_About
+  usecase 查看留言板 as UC_MessageView
+  usecase 注册 as UC_Register
+  usecase 登录 as UC_Login
+  usecase 重置密码 as UC_Reset
+
+  usecase 点赞或取消点赞 as UC_Like
+  usecase 提交评论 as UC_Comment
+  usecase 提交留言 as UC_Message
+  usecase 维护个人资料 as UC_Profile
+  usecase 上传头像 as UC_Avatar
+  usecase 修改密码 as UC_Password
+  usecase 查看喜欢的文章 as UC_Favorites
+  usecase 退出登录 as UC_Logout
+
+  usecase 查看后台统计 as UC_Dashboard
+  usecase 管理文章 as UC_ArticleAdmin
+  usecase 管理用户 as UC_UserAdmin
+  usecase 审核评论 as UC_CommentAdmin
+  usecase 审核留言 as UC_MessageAdmin
+  usecase 管理分类 as UC_CategoryAdmin
+  usecase 管理标签 as UC_TagAdmin
+  usecase 管理站点配置 as UC_ConfigAdmin
+}
+
+Guest --> UC_Home
+Guest --> UC_List
+Guest --> UC_Detail
+Guest --> UC_About
+Guest --> UC_MessageView
+Guest --> UC_Register
+Guest --> UC_Login
+Guest --> UC_Reset
+
+User --> UC_Like
+User --> UC_Comment
+User --> UC_Message
+User --> UC_Profile
+User --> UC_Avatar
+User --> UC_Password
+User --> UC_Favorites
+User --> UC_Logout
+
+Admin --> UC_Dashboard
+Admin --> UC_ArticleAdmin
+Admin --> UC_UserAdmin
+Admin --> UC_CommentAdmin
+Admin --> UC_MessageAdmin
+Admin --> UC_CategoryAdmin
+Admin --> UC_TagAdmin
+Admin --> UC_ConfigAdmin
+@enduml
