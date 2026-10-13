@@ -1,0 +1,16 @@
+{
+  "recordedOn": "2026-10-09",
+  "execution": "node --experimental-vm-modules tests/public-reading.test.mjs --reproduce (修复前版本当时使用的参数)",
+  "evidenceType": "真实前端源码的内存模拟执行；不是浏览器或后端联调",
+  "like401": {
+    "redirects": ["/login?redirect=%2Farticles%2F1"],
+    "articleLoaded": true,
+    "storageCleared": true,
+    "piniaStillAuthenticated": true
+  },
+  "me401": {
+    "redirects": ["/login?redirect=%2Farticles%2F1"],
+    "authenticated": false
+  },
+  "note": "以上结果摘录本轮修复前实际工具输出；当前脚本改用--observe观察当前源码，不可用最终源码重造修复前结果。"
+}

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'"><title>后台数据概览原型 · 14.5-A</title><style>*{box-sizing:border-box}body{margin:0;background:#f3f3f1;color:#292929;font:14px/1.6 "Microsoft YaHei",sans-serif}a{color:#333}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid #777;border-radius:3px;padding:7px 12px;background:white;color:#222}button.primary,button[aria-selected=true]{background:#333;color:white}button:disabled{opacity:.45;cursor:not-allowed}input,select,textarea{border:1px solid #999;padding:8px;background:white;max-width:100%}textarea{width:100%;resize:vertical}label{display:block;margin:10px 0 4px}input[type=checkbox]{width:auto}h1{font-size:26px;margin:0}h2{font-size:19px;margin:0 0 12px}small,.muted{color:#666}p{margin:8px 0}.toolbar{padding:12px 22px;background:#e5e5e2;border-bottom:1px dashed #777;display:flex;flex-wrap:wrap;gap:14px;align-items:center}.toolbar small{margin-left:auto}.shell{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:calc(100vh - 100px)}.sidebar{background:#e8e8e5;border-right:1px solid #999;padding:22px 15px}.brand{font-size:22px;margin-bottom:26px}.menu{display:grid;gap:10px}.menu a,.menu button{display:block;text-align:left;padding:12px;border:1px solid #aaa;text-decoration:none;background:white}.menu .active{background:#333;color:white}.workspace{min-width:0}header{padding:18px 28px;background:white;border-bottom:1px solid #aaa;display:flex;align-items:center;gap:18px}.userbox{margin-left:auto;display:flex;align-items:center;gap:12px}.avatar{width:36px;height:36px;background:#ddd;border:1px solid #888;border-radius:50%;display:grid;place-items:center}.main{padding:24px 28px;min-width:0}.controls,.panel{background:white;border:1px solid #aaa;padding:18px;margin-bottom:20px}.controls{border-style:dashed;background:#f7f7f5}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.row label{margin:0}.notice{padding:12px;border:1px dashed #777;background:#f7f7f5;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere}.notice:empty{display:none}.error{color:#8b2020}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.stat{border:1px solid #aaa;background:white;padding:18px}.stat strong{display:block;font-size:32px}.split{display:grid;grid-template-columns:2fr 1fr;gap:18px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;background:white}th,td{text-align:left;border-bottom:1px solid #ccc;padding:12px;vertical-align:top}th{background:#eee}td .row{gap:6px}.state{padding:34px;text-align:center;border:1px dashed #999;margin:15px 0}.pager{margin-top:16px;display:flex;gap:14px;align-items:center}.tag{display:inline-block;background:#eee;border:1px solid #aaa;padding:1px 6px;margin:2px;font-size:12px}.tabs{display:flex;gap:8px;margin-bottom:18px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}.form-grid input:not([type=checkbox]),.form-grid select{width:100%}.full{grid-column:1/-1}footer{padding:15px 28px;border-top:1px solid #aaa;background:white;color:#666}.trend{height:155px;display:flex;align-items:flex-end;justify-content:space-around;border-bottom:1px solid #777;gap:15px;margin:20px 0 10px}.bar-group{text-align:center;flex:1}.bar{width:70%;min-width:16px;margin:auto;background:#999;border:1px solid #555}.bar-label{font-size:12px}dialog{border:1px solid #777;max-width:min(700px,90vw);padding:24px;max-height:90vh;overflow:auto}dialog::backdrop{background:#0005}dialog.drawer{position:fixed;inset:0 0 0 auto;margin:0;width:min(760px,92vw);max-width:92vw;max-height:100vh;height:100vh;padding:28px;border-right:0}pre{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;background:#eee;padding:12px}details{margin-top:16px}summary{cursor:pointer}.config-row{border-bottom:1px solid #ddd;padding:10px 0}.config-row input:not([type=checkbox]){width:100%}[hidden]{display:none!important}:focus-visible{outline:3px solid #555;outline-offset:3px}@media(max-width:1050px){.grid{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}.shell{grid-template-columns:190px minmax(0,1fr)}.main{padding:18px}.userbox{flex-wrap:wrap}}</style></head>
+<body data-page="dashboard"><div class="toolbar"><strong>14.5-A · 灰阶低保真原型</strong><a href="后台数据概览原型.html">数据概览</a><a href="后台文章管理原型.html">文章管理</a><a href="后台系统管理原型.html">系统管理</a><a href="文章列表原型.html">公开文章</a><a href="文章详情原型.html">文章详情</a><a href="登录注册原型.html">登录 / 注册</a><a href="找回密码原型.html">找回密码</a><a href="个人中心原型.html">个人中心</a><small>全部为模拟 · 无后端连接 · 刷新复原</small></div><div class="shell"><aside class="sidebar"><div class="brand">PB · 博客管理</div><nav id="menu" class="menu" aria-label="后台模拟导航"><a href="后台数据概览原型.html" class="active" aria-current="page">数据概览</a><a href="后台文章管理原型.html" class="" >文章管理</a><a href="后台用户管理原型.html">用户管理</a><a href="后台评论管理原型.html">评论管理</a><a href="后台留言管理原型.html">留言管理</a><a href="后台系统管理原型.html" class="" >系统管理</a></nav><p class="muted">导航隐藏仅是界面表达，不能替代服务器权限校验。</p></aside><div class="workspace"><header><div><small>PAGE-010 · /admin</small><h1>数据概览</h1><small>Personal Blog Console · 低保真设计</small></div><div class="userbox"><span class="avatar" aria-hidden="true">示</span><span id="userLabel">示例管理员</span><button type="button" data-destination="/">返回博客</button><button id="logout" type="button">退出（模拟）</button><a href="登录注册原型.html">登录原型</a></div></header><main class="main"><section class="controls"><strong>原型演示控件（不是正式业务功能）</strong><div class="row"><label for="identity">模拟身份</label><select id="identity"><option value="admin">管理员</option><option value="user">普通用户</option><option value="guest">未登录</option><option value="expired">Token过期</option><option value="disabled">用户禁用</option><option value="revoked">管理员角色撤销</option></select><label for="viewMode">读取状态</label><select id="viewMode"><option value="normal">成功：非零数据</option><option value="zero">成功：真实0</option><option value="loading">加载中</option><option value="failure">请求失败</option><option value="unknown">未知 / 不可用</option></select><button id="retry" type="button">模拟重试读取</button><button id="resetDemo" type="button">恢复演示初始数据</button></div><small>每个HTML独立内存；刷新或跳转不共享修改。默认管理员只是原型入口，不代表真实登录。</small></section><div id="feedback" class="notice" role="status" aria-live="polite"></div><div id="accessState" class="state"></div><div id="protected"><section class="grid" aria-label="模拟统计"><div class="stat">文章总数<strong data-stat>—</strong></div><div class="stat">用户总数<strong data-stat>—</strong></div><div class="stat">评论总数<strong data-stat>—</strong></div><div class="stat">已发布文章<strong data-stat>—</strong></div></section><p id="statsState" class="notice" role="status"></p><div class="split"><section class="panel"><h2>近七日文章发布趋势</h2><p class="muted">按当前有效已发布文章的发布时间统计，不是不可变发布事件历史。内置数值仅为示例。</p><div id="trendState" class="state"></div><div id="trendArea"><div id="trendBars" class="trend" aria-label="七日灰阶柱形占位展示"></div><details><summary>查看同一组趋势数值（模拟）</summary><table><thead><tr><th>日期</th><th>发布数量</th></tr></thead><tbody id="trendRows"></tbody></table></details></div></section><section class="panel"><h2>内容发布概况</h2><p id="publishSummary"></p><a href="后台文章管理原型.html">开始写文章 → 文章管理</a><p class="muted">沿真实导航：只进入管理页面，不自动打开新增抽屉。</p></section></div></div></main><footer>内置模拟数据 · 无真实JWT、API、数据库或SMTP · 待用户检查，不是系统验收</footer></div></div><dialog id="destination" aria-label="尚未制作页面说明"><h2>目标页面说明</h2><p id="destinationText"></p><button type="button" data-close="destination">关闭</button></dialog><dialog id="confirmDialog" aria-label="危险操作确认"><h2>操作确认（模拟）</h2><p id="confirmText"></p><div class="row"><button type="button" id="confirmYes" class="primary">确认</button><button type="button" data-close="confirmDialog">取消</button></div></dialog><script>
+'use strict';
+// PURE-BEGIN
+const cp=s=>Array.from(s).length;
+const javaTrim=s=>s.replace(/^[\u0000-\u0020]+|[\u0000-\u0020]+$/g,'');
+const configKeys=['siteName','siteSubtitle','homeIntro','aboutContent','email'];
+function configPatch(before,payload,fail=false){
+ if(!payload||typeof payload!=='object'||Array.isArray(payload)||Object.keys(payload).length===0)throw Error('拒绝空对象或非对象请求。');
+ const next={...before},limits={siteName:50,siteSubtitle:100,homeIntro:500,aboutContent:5000,email:254};
+ for(const [key,raw] of Object.entries(payload)){
+  if(!configKeys.includes(key))throw Error('未知配置键被拒绝：'+key);
+  if(typeof raw!=='string')throw Error(key+'：拒绝null或非字符串。');
+  const value=key==='siteName'?javaTrim(raw):raw;
+  if(key==='siteName'&&!value)throw Error('siteName：去除首尾空白后必填。');
+  if(cp(value)>limits[key])throw Error(key+'：超过'+limits[key]+'个Unicode码点。');
+  if(key==='email'&&value!==''&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))throw Error('email：非空时需要合理邮箱格式。');
+  next[key]=value;
+ }
+ if(fail)throw Error('模拟批次写入中途失败：整个批次回滚，没有保存任何字段。');
+ return next;
+}
+function mayAssociate(item,oldId,newId){return item&&!item.deleted&&(item.status==='ACTIVE'||oldId===newId);}
+function associationErrors(a,old,categories,tags){
+ const errors=[];
+ if(!mayAssociate(categories.find(c=>c.id===a.categoryId),old?old.categoryId:null,a.categoryId))errors.push('分类：停用或无效分类不能建立新关联；原停用分类不变可保留。');
+ for(const id of a.tagIds)if(!mayAssociate(tags.find(t=>t.id===id),old&&old.tagIds.includes(id)?id:null,id))errors.push('标签：停用或无效标签不能建立新关联；原停用标签不变可保留。');
+ return errors;
+}
+function categoryRefs(id,articles){return articles.filter(a=>!a.deleted&&a.categoryId===id).length;}
+function tagRefs(id,articles){return articles.filter(a=>a.tagIds.includes(id)).length;}
+function permission(identity){return identity==='admin'?'allow':['user','revoked'].includes(identity)?'403':'401';}
+function statText(mode,value){return mode==='normal'?String(value):mode==='zero'?'0':mode==='loading'?'加载中…':mode==='failure'?'查询失败':'未知';}
+function publishTime(old,status,now){return status==='PUBLISHED'?(old&&old.publishedAt?old.publishedAt:now):null;}
+// PURE-END
+const $=id=>document.getElementById(id),page=document.body.dataset.page;
+let identity='admin',viewMode='normal',articlePage=1,currentArticle=null,entityKind='category',entityId=null;
+const categories=[{id:1,name:'技术学习',description:'示例分类',sortOrder:0,status:'ACTIVE',deleted:false},{id:2,name:'历史分类',description:'已停用但有历史关联',sortOrder:1,status:'INACTIVE',deleted:false},{id:3,name:'未引用分类',description:'可演示逻辑删除',sortOrder:2,status:'ACTIVE',deleted:false}];
+const tags=[{id:1,name:'课程设计',slug:'course',description:'示例标签',status:'ACTIVE',deleted:false},{id:2,name:'历史标签',slug:'legacy',description:'已停用但有历史关联',status:'INACTIVE',deleted:false},{id:3,name:'未引用标签',slug:'unused',description:'可演示逻辑删除',status:'ACTIVE',deleted:false}];
+const articles=Array.from({length:12},(_,i)=>({id:i+1,title:i===0?'历史停用关联示例文章':'课程文章示例 '+(i+1),slug:'demo-'+(i+1),summary:'仅用于低保真交互演示。',content:'# 示例正文\n\n这里是Markdown编辑文本。',coverUrl:'',categoryId:i===0?2:1,tagIds:i===0?[2]:[1],status:i%3===0?'DRAFT':'PUBLISHED',isTop:i===1?1:0,viewCount:100+i*5,publishedAt:i%3===0?null:'2026-10-0'+(i%7+1)+' 10:00',deleted:false}));
+let config={siteName:'演示博客',siteSubtitle:'课程设计演示',homeIntro:'模拟首页简介',aboutContent:'模拟关于我内容',email:'contact@example.com'};
+const initial=JSON.stringify({categories,tags,articles,config});
+function note(text,error=false){$('feedback').textContent=text;$('feedback').classList.toggle('error',error);}
+function destination(path){$('destinationText').textContent='尚未制作的页面：真实去向 '+path+'。只显示目标说明，不请求真实网站。';$('destination').showModal();}
+function guard(){if(permission(identity)==='allow')return true;note('模拟'+permission(identity)+'：当前身份不能执行后台操作。',true);return false;}
+function gate(){
+ const allowed=permission(identity)==='allow';
+ $('protected').hidden=!allowed;$('menu').hidden=!allowed;$('userLabel').textContent={admin:'示例管理员（显示名）',user:'示例普通用户',guest:'未登录',expired:'登录状态失效',disabled:'账号已禁用',revoked:'管理员角色已撤销'}[identity];
+ $('accessState').hidden=allowed;
+ $('accessState').textContent=allowed?'':permission(identity)==='403'?'模拟403：有效身份不是ADMIN；纠正并隐藏后台菜单。前端导航应返回公开前台，后端仍必须独立拒绝请求；不把403当作普通退出。':'模拟401：未登录、登录失效或账号禁用；保护内容不可用，失效本地身份应清理并引导登录。仍可阅读公开文章。';
+ if(!allowed)document.querySelectorAll('dialog').forEach(d=>{if(d.open)d.close();});
+ return allowed;
+}
+function actionOutcome(){return $('writeMode')?$('writeMode').value:'success';}
+function outcomeError(){const outcome=actionOutcome();return outcome==='failure'?'模拟保存/删除失败：原数据不变，不报告成功。':outcome==='conflict'?'模拟重复操作或数据冲突：操作未完成，请重新核查。':'';}
+function td(row,value){const el=document.createElement('td');el.textContent=value;row.append(el);return el;}
+function actionButton(cell,label,fn){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>{if(guard())fn();};cell.append(b);}
+function showConfirm(text,fn){
+ $('confirmText').textContent=text;const button=$('confirmYes');button.onclick=()=>{if(!guard())return;$('confirmDialog').close();fn();};$('confirmDialog').showModal();
+}
+function render(){
+ if(!gate())return;
+ if(page==='dashboard')renderDashboard();
+ if(page==='articles')renderArticles();
+ if(page==='system')renderSystem();
+}
+$('identity').onchange=()=>{identity=$('identity').value;note('身份切换仅是演示；不查询真实认证服务。');render();};
+$('viewMode').onchange=()=>{viewMode=$('viewMode').value;render();};
+$('retry').onclick=()=>{viewMode='normal';$('viewMode').value='normal';render();note('模拟重新加载正常数据。');};
+$('logout').onclick=()=>{identity='guest';$('identity').value='guest';render();note('已清除模拟身份；真实后台退出去向为/login。本原型不签发或撤销Token。');};
+$('resetDemo').onclick=()=>{const restored=JSON.parse(initial);categories.splice(0,categories.length,...restored.categories);tags.splice(0,tags.length,...restored.tags);articles.splice(0,articles.length,...restored.articles);config=restored.config;articlePage=1;identity='admin';viewMode='normal';$('identity').value='admin';$('viewMode').value='normal';document.querySelectorAll('dialog').forEach(d=>{if(d.open)d.close();});if(page==='system')fillConfig();render();note('已恢复本文件内置模拟数据。跨HTML文件不共享修改。');};
+document.querySelectorAll('[data-destination]').forEach(b=>b.onclick=()=>destination(b.dataset.destination));
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).close());
+function renderDashboard(){
+ const values=[12,8,6,8];document.querySelectorAll('[data-stat]').forEach((el,i)=>{el.textContent=statText(viewMode,values[i]);});
+ $('statsState').textContent={normal:'模拟查询成功：非零统计。',zero:'模拟查询成功：各统计实际为0，不是失败回退值。',loading:'模拟统计请求加载中；未得到结果。',failure:'模拟统计请求失败：数值不可用，不填0。',unknown:'模拟尚未得到可用数据：数值未知。'}[viewMode];
+ const ok=['normal','zero'].includes(viewMode);$('trendArea').hidden=!ok;$('trendState').hidden=ok;$('trendState').textContent=viewMode==='failure'?'趋势查询失败（模拟），不能当作7天没有发布。':viewMode==='loading'?'趋势加载中（模拟）…':'趋势数据未知/不可用（模拟）。';
+ $('trendBars').replaceChildren();$('trendRows').replaceChildren();
+ const trend=viewMode==='zero'?[0,0,0,0,0,0,0]:[1,0,2,1,0,3,1];
+ trend.forEach((n,i)=>{const g=document.createElement('div');g.className='bar-group';const b=document.createElement('div');b.className='bar';b.style.height=(n*30)+'px';const l=document.createElement('div');l.className='bar-label';l.textContent='10/'+(i+2)+'：'+n;g.append(b,l);$('trendBars').append(g);const r=document.createElement('tr');td(r,'2026-10-'+String(i+2).padStart(2,'0'));td(r,String(n));$('trendRows').append(r);});
+ $('publishSummary').textContent=ok?(viewMode==='zero'?'已发布0，草稿0；总文章为0，比例不适用。':'已发布8，草稿4；发布比例约67%（模拟）。'):'发布比例与草稿数不可用，不生成伪造百分比。';
+}
+function renderArticles(){
+ const normal=viewMode==='normal',empty=viewMode==='empty';$('articleTable').hidden=!normal;$('articlePager').hidden=!normal;$('articleState').hidden=normal;
+ if(!normal){$('articleState').textContent=empty?'查询成功：暂无文章（模拟）。':viewMode==='loading'?'文章加载中（模拟）…':'文章查询失败（模拟）；不是空集。';$('articleTotal').textContent=empty?'共0篇（模拟成功空集）':'文章总数未知';return;}
+ const keyword=$('keyword').value.trim(),status=$('statusFilter').value;
+ const rows=articles.filter(a=>!a.deleted&&(!keyword||a.title.includes(keyword))&&(!status||a.status===status));
+ const pages=Math.max(1,Math.ceil(rows.length/10));articlePage=Math.min(articlePage,pages);
+ $('articleTotal').textContent='共'+rows.length+'篇模拟文章';$('articleRows').replaceChildren();
+ for(const a of rows.slice((articlePage-1)*10,articlePage*10)){
+  const row=document.createElement('tr');td(row,(a.isTop?'[置顶] ':'')+a.title+'\n'+a.slug);td(row,a.status==='DRAFT'?'草稿':'已发布');
+  td(row,categories.find(c=>c.id===a.categoryId)?.name||'未知分类');td(row,a.tagIds.map(id=>tags.find(t=>t.id===id)?.name||'未知标签').join(' / '));td(row,a.publishedAt||'未发布');td(row,String(a.viewCount));
+  const cell=td(row,'');cell.className='row';actionButton(cell,'编辑',()=>openArticle(a.id));actionButton(cell,'删除',()=>showConfirm('确认逻辑删除“'+a.title+'”？不物理删除文章；清理模拟标签关联，评论与点赞历史不在此原型操作。',()=>deleteArticle(a.id)));$('articleRows').append(row);
+ }
+ if(!rows.length){const row=document.createElement('tr');const c=td(row,'查询成功：无匹配文章。');c.colSpan=7;$('articleRows').append(row);}
+ $('articlePageLabel').textContent='第'+articlePage+'/'+pages+'页，每页10条';$('articlePrev').disabled=articlePage<=1;$('articleNext').disabled=articlePage>=pages;
+}
+function openArticle(id){
+ currentArticle=id?articles.find(a=>a.id===id&&!a.deleted):null;
+ const a=currentArticle||{title:'',slug:'',summary:'',content:'',coverUrl:'',categoryId:1,tagIds:[],status:'DRAFT',isTop:0};
+ $('drawerTitle').textContent=id?'编辑文章（模拟）':'新增文章（模拟）';
+ for(const field of ['title','slug','summary','content','coverUrl','status'])$('article_'+field).value=a[field];$('article_isTop').checked=Boolean(a.isTop);
+ $('article_categoryId').replaceChildren();
+ for(const c of categories.filter(c=>!c.deleted)){const o=document.createElement('option');o.value=String(c.id);o.textContent=c.name+(c.status==='INACTIVE'?'（停用'+(currentArticle?.categoryId===c.id?' · 原历史关联，可保留':' · 不可新增关联')+'）':'');o.disabled=c.status==='INACTIVE'&&currentArticle?.categoryId!==c.id;$('article_categoryId').append(o);}
+ $('article_categoryId').value=String(a.categoryId);$('article_tagIds').replaceChildren();
+ for(const t of tags.filter(t=>!t.deleted)){const o=document.createElement('option');o.value=String(t.id);o.textContent=t.name+(t.status==='INACTIVE'?'（停用'+(currentArticle?.tagIds.includes(t.id)?' · 原历史关联，可保留':' · 不可新增关联')+'）':'');o.disabled=t.status==='INACTIVE'&&!currentArticle?.tagIds.includes(t.id);o.selected=a.tagIds.includes(t.id);$('article_tagIds').append(o);}
+ $('injectInactive').checked=false;$('articleErrors').textContent='';$('articleDrawer').showModal();
+}
+function saveArticle(e){
+ e.preventDefault();if(!guard())return;
+ const a={};for(const f of ['title','slug','summary','content','coverUrl','status'])a[f]=$('article_'+f).value;
+ a.categoryId=Number($('article_categoryId').value);a.tagIds=Array.from($('article_tagIds').selectedOptions,o=>Number(o.value));a.isTop=$('article_isTop').checked?1:0;
+ if($('injectInactive').checked){a.categoryId=2;a.tagIds=[...new Set([...a.tagIds,2])];}
+ const errors=associationErrors(a,currentArticle,categories,tags);
+ for(const [f,max] of [['title',200],['slug',220],['summary',500],['coverUrl',500]])if(a[f].length>max)errors.push(f+'：超出当前接口长度限制'+max+'。');
+ if(!a.title.trim())errors.push('标题不能为空。');if(!a.content.trim())errors.push('Markdown正文不能为空。');
+ if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(a.slug))errors.push('别名只支持小写字母、数字及分隔连字符。');
+ if(articles.some(row=>row.slug===a.slug&&row.id!==currentArticle?.id))errors.push('文章别名已使用（包含已逻辑删除记录）。');
+ if(!['DRAFT','PUBLISHED'].includes(a.status))errors.push('发布状态不合法。');
+ const failure=outcomeError();if(failure)errors.push(failure);
+ $('articleErrors').textContent=errors.join('\n');if(errors.length)return;
+ const now=new Date().toLocaleString('sv-SE');a.publishedAt=publishTime(currentArticle,a.status,now);
+ if(currentArticle)Object.assign(currentArticle,a);else articles.unshift({...a,id:Math.max(...articles.map(v=>v.id))+1,viewCount:0,deleted:false});
+ $('articleDrawer').close();viewMode='normal';$('viewMode').value='normal';render();note('文章保存成功（内存模拟）。只有确认业务成功才反馈；未请求后端。');
+}
+function deleteArticle(id){
+ const failure=outcomeError(),a=articles.find(v=>v.id===id&&!v.deleted);
+ if(failure||!a){note(failure||'文章不存在或已删除（模拟），不重复报告成功。',true);return;}
+ a.deleted=true;a.tagIds=[];render();note('逻辑删除成功（模拟deleted=true）：列表已更新，标签关联已清空；不删除真实记录。');
+}
+function renderSystem(){
+ const tab=document.querySelector('[role=tab][aria-selected=true]').dataset.tab;
+ document.querySelectorAll('[data-tab-panel]').forEach(p=>p.hidden=p.dataset.tabPanel!==tab);
+ const ok=viewMode==='normal';$('systemState').hidden=ok;$('systemState').textContent=viewMode==='empty'?'模拟读取成功但暂无数据；历史缺失需审计，不自动补默认。':viewMode==='loading'?'系统管理数据加载中（模拟）…':'系统管理读取失败（模拟），不能当作空配置或空列表。';
+ document.querySelectorAll('.system-data').forEach(p=>p.hidden=!ok);
+ if(!ok)return;
+ for(const kind of ['category','tag']){
+  const list=kind==='category'?categories:tags,body=$(kind+'Rows');body.replaceChildren();
+  for(const item of list.filter(v=>!v.deleted)){
+   const r=document.createElement('tr');td(r,item.name);td(r,kind==='category'?String(item.sortOrder):item.slug);td(r,item.description);td(r,item.status==='ACTIVE'?'启用':'停用');
+   const refs=kind==='category'?categoryRefs(item.id,articles):tagRefs(item.id,articles);td(r,String(refs));
+   const cell=td(r,'');cell.className='row';actionButton(cell,'编辑',()=>openEntity(kind,item.id));actionButton(cell,item.status==='ACTIVE'?'停用':'启用',()=>showConfirm('确认改变“'+item.name+'”状态？保留已有文章关联，不自动删除。',()=>{const failure=outcomeError();if(failure){note(failure,true);return;}item.status=item.status==='ACTIVE'?'INACTIVE':'ACTIVE';render();note('状态更新成功（模拟），历史关联保持。');}));actionButton(cell,'删除',()=>showConfirm('确认逻辑删除“'+item.name+'”？有关联时必须拒绝，不级联清理文章。',()=>deleteEntity(kind,item.id)));body.append(r);
+  }
+  if(!list.some(v=>!v.deleted)){const r=document.createElement('tr');const c=td(r,'读取成功：暂无记录。');c.colSpan=6;body.append(r);}
+ }
+ $('storedConfig').textContent=JSON.stringify(config,null,2);
+}
+function openEntity(kind,id){
+ entityKind=kind;entityId=id;const item=(kind==='category'?categories:tags).find(v=>v.id===id)||{name:'',description:'',slug:'',sortOrder:0,status:'ACTIVE'};
+ $('entityTitle').textContent=(id?'编辑':'新增')+(kind==='category'?'分类':'标签')+'（模拟）';
+ for(const f of ['name','description','status','slug','sortOrder'])$('entity_'+f).value=item[f]??'';
+ $('entitySlugRow').hidden=kind!=='tag';$('entitySortRow').hidden=kind!=='category';$('entityErrors').textContent='';$('entityDialog').showModal();
+}
+function saveEntity(e){
+ e.preventDefault();if(!guard())return;
+ const list=entityKind==='category'?categories:tags,name=$('entity_name').value,description=$('entity_description').value,status=$('entity_status').value,slug=$('entity_slug').value,errors=[];
+ if(!name.trim())errors.push('名称不能为空。');
+ if(list.some(v=>!v.deleted&&v.id!==entityId&&v.name===name.trim()))errors.push('名称已被使用（模拟唯一性，非数据库排序规则验证）。');
+ if(entityKind==='tag'){
+  if(name.length>50||description.length>255)errors.push('标签名称最多50，描述最多255（沿当前DTO长度口径）。');
+  if(slug.length>80||!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug))errors.push('标签别名为小写字母/数字/连字符，最多80。');
+  if(list.some(v=>!v.deleted&&v.id!==entityId&&v.slug===slug.trim()))errors.push('标签别名已被使用。');
+ }
+ const failure=outcomeError();if(failure)errors.push(failure);$('entityErrors').textContent=errors.join('\n');if(errors.length)return;
+ const values={name:entityKind==='tag'?name.trim():name,description:entityKind==='tag'?description.trim():description,status};
+ if(entityKind==='category')values.sortOrder=Number($('entity_sortOrder').value)||0;else values.slug=slug.trim();
+ if(entityId)Object.assign(list.find(v=>v.id===entityId),values);else list.push({...values,id:Math.max(0,...list.map(v=>v.id))+1,deleted:false});
+ $('entityDialog').close();render();note('保存成功（模拟）；分类排序字段不会添加到标签。');
+}
+function deleteEntity(kind,id){
+ const list=kind==='category'?categories:tags,item=list.find(v=>v.id===id&&!v.deleted),refs=kind==='category'?categoryRefs(id,articles):tagRefs(id,articles);
+ if(!item){note('对象不存在或已删除，不能报告成功。',true);return;}
+ if(refs){note(kind==='category'?'拒绝删除：有'+refs+'篇未逻辑删除的草稿/发布文章引用。':'拒绝删除：仍有'+refs+'条文章标签关联。可停用，不清理历史关联。',true);return;}
+ const failure=outcomeError();if(failure){note(failure,true);return;}item.deleted=true;render();note('无引用对象逻辑删除成功（模拟）。不级联删除文章或互动历史。');
+}
+function fillConfig(){for(const key of configKeys){$('cfg_'+key).value=config[key];$('include_'+key).checked=true;}$('configPayload').value=JSON.stringify(config,null,2);}
+function applyConfig(payload){
+ if(!guard())return;const before={...config};$('beforeConfig').textContent=JSON.stringify(before,null,2);$('requestConfig').textContent=JSON.stringify(payload,null,2);
+ try{const out=actionOutcome();if(out==='conflict')throw Error('模拟更新冲突：整批未保存。');
+ const next=configPatch(before,payload,out==='failure'||$('batchFail').checked);config=next;
+ $('configResult').textContent='全部提交字段保存成功（模拟），未提交字段保持；合法空字符串不被默认值替换。';$('configResult').classList.remove('error');note('配置业务保存成功（内存模拟），不是仅HTTP请求成功。');
+ }catch(e){$('configResult').textContent=e.message+' 原配置保持不变，不报告保存成功。';$('configResult').classList.add('error');note('配置保存被拒绝或失败（模拟），无部分成功。',true);}
+ $('afterConfig').textContent=JSON.stringify(config,null,2);render();
+}
+if(page==='articles'){
+ $('searchForm').onsubmit=e=>{e.preventDefault();articlePage=1;viewMode='normal';$('viewMode').value='normal';render();};
+ $('articlePrev').onclick=()=>{articlePage--;render();};$('articleNext').onclick=()=>{articlePage++;render();};
+ $('createArticle').onclick=()=>{if(guard())openArticle(null);};$('articleForm').onsubmit=saveArticle;
+}
+if(page==='system'){
+ document.querySelectorAll('[role=tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[role=tab]').forEach(t=>t.setAttribute('aria-selected',String(t===b)));render();});
+ $('createCategory').onclick=()=>{if(guard())openEntity('category',null);};$('createTag').onclick=()=>{if(guard())openEntity('tag',null);};$('entityForm').onsubmit=saveEntity;
+ fillConfig();$('reloadConfig').onclick=()=>{if(guard()){fillConfig();note('读取已保存的模拟值，未提交输入被复原。');}};
+ $('configForm').onsubmit=e=>{e.preventDefault();const payload={};for(const key of configKeys)if($('include_'+key).checked)payload[key]=$('cfg_'+key).value;applyConfig(payload);};
+ $('applyJson').onclick=()=>{let payload;try{payload=JSON.parse($('configPayload').value);}catch{note('JSON格式错误，未保存。',true);return;}applyConfig(payload);};
+ document.querySelectorAll('[data-json-example]').forEach(b=>b.onclick=()=>{$('configPayload').value=JSON.stringify({single:{homeIntro:'仅更新首页简介'},empty:{siteSubtitle:''},unknown:{unexpectedKey:'演示未知键'},null:{email:null},invalid:{siteSubtitle:'不应部分保存',email:'invalid'},all:{siteName:' 新演示博客 ',siteSubtitle:'',homeIntro:'整批简介',aboutContent:'整批关于',email:'contact@example.com'},none:{}}[b.dataset.jsonExample],null,2);});
+}
+render();
+</script></body></html>
+

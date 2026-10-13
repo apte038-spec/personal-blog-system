@@ -1,0 +1,15 @@
+(node:5764) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "kind": "current mocked source execution (not a browser)",
+  "like401": {
+    "redirects": [],
+    "articleLoaded": true,
+    "storageCleared": true,
+    "piniaStillAuthenticated": false
+  },
+  "me401": {
+    "redirects": [],
+    "authenticated": false
+  }
+}

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; form-action 'none'; base-uri 'none'"><title>后台评论管理原型 · 14.5-B</title><style>*{box-sizing:border-box}body{margin:0;background:#f3f3f1;color:#292929;font:14px/1.6 "Microsoft YaHei",sans-serif}a{color:#333}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid #777;border-radius:3px;padding:7px 12px;background:white;color:#222}button.primary,button[aria-selected=true]{background:#333;color:white}button:disabled{opacity:.45;cursor:not-allowed}input,select,textarea{border:1px solid #999;padding:8px;background:white;max-width:100%}textarea{width:100%;resize:vertical}label{display:block;margin:10px 0 4px}input[type=checkbox]{width:auto}h1{font-size:26px;margin:0}h2{font-size:19px;margin:0 0 12px}small,.muted{color:#666}p{margin:8px 0}.toolbar{padding:12px 22px;background:#e5e5e2;border-bottom:1px dashed #777;display:flex;flex-wrap:wrap;gap:14px;align-items:center}.toolbar small{margin-left:auto}.shell{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:calc(100vh - 100px)}.sidebar{background:#e8e8e5;border-right:1px solid #999;padding:22px 15px}.brand{font-size:22px;margin-bottom:26px}.menu{display:grid;gap:10px}.menu a,.menu button{display:block;text-align:left;padding:12px;border:1px solid #aaa;text-decoration:none;background:white}.menu .active{background:#333;color:white}.workspace{min-width:0}header{padding:18px 28px;background:white;border-bottom:1px solid #aaa;display:flex;align-items:center;gap:18px}.userbox{margin-left:auto;display:flex;align-items:center;gap:12px}.avatar{width:36px;height:36px;background:#ddd;border:1px solid #888;border-radius:50%;display:grid;place-items:center}.main{padding:24px 28px;min-width:0}.controls,.panel{background:white;border:1px solid #aaa;padding:18px;margin-bottom:20px}.controls{border-style:dashed;background:#f7f7f5}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.row label{margin:0}.notice{padding:12px;border:1px dashed #777;background:#f7f7f5;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere}.notice:empty{display:none}.error{color:#8b2020}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.stat{border:1px solid #aaa;background:white;padding:18px}.stat strong{display:block;font-size:32px}.split{display:grid;grid-template-columns:2fr 1fr;gap:18px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;background:white}th,td{text-align:left;border-bottom:1px solid #ccc;padding:12px;vertical-align:top}th{background:#eee}td .row{gap:6px}.state{padding:34px;text-align:center;border:1px dashed #999;margin:15px 0}.pager{margin-top:16px;display:flex;gap:14px;align-items:center}.tag{display:inline-block;background:#eee;border:1px solid #aaa;padding:1px 6px;margin:2px;font-size:12px}.tabs{display:flex;gap:8px;margin-bottom:18px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}.form-grid input:not([type=checkbox]),.form-grid select{width:100%}.full{grid-column:1/-1}footer{padding:15px 28px;border-top:1px solid #aaa;background:white;color:#666}.trend{height:155px;display:flex;align-items:flex-end;justify-content:space-around;border-bottom:1px solid #777;gap:15px;margin:20px 0 10px}.bar-group{text-align:center;flex:1}.bar{width:70%;min-width:16px;margin:auto;background:#999;border:1px solid #555}.bar-label{font-size:12px}dialog{border:1px solid #777;max-width:min(700px,90vw);padding:24px;max-height:90vh;overflow:auto}dialog::backdrop{background:#0005}dialog.drawer{position:fixed;inset:0 0 0 auto;margin:0;width:min(760px,92vw);max-width:92vw;max-height:100vh;height:100vh;padding:28px;border-right:0}pre{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;background:#eee;padding:12px}details{margin-top:16px}summary{cursor:pointer}.config-row{border-bottom:1px solid #ddd;padding:10px 0}.config-row input:not([type=checkbox]){width:100%}[hidden]{display:none!important}:focus-visible{outline:3px solid #555;outline-offset:3px}@media(max-width:1050px){.grid{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}.shell{grid-template-columns:190px minmax(0,1fr)}.main{padding:18px}.userbox{flex-wrap:wrap}}</style></head>
+<body data-page="comments"><div class="toolbar"><strong>14.5-B · 灰阶低保真原型</strong><a href="后台数据概览原型.html">数据概览</a><a href="后台文章管理原型.html">文章管理</a><a href="后台用户管理原型.html">用户管理</a><a href="后台评论管理原型.html">评论管理</a><a href="后台留言管理原型.html">留言管理</a><a href="后台系统管理原型.html">系统管理</a><a href="文章列表原型.html">公开文章</a><a href="登录注册原型.html">登录原型</a><a href="个人中心原型.html">个人中心</a><small>模拟数据 · 无真实接口 · 刷新复原</small></div><div class="shell"><aside class="sidebar"><div class="brand">PB · 博客管理</div><nav id="menu" class="menu" aria-label="后台模拟导航"><a href="后台数据概览原型.html" class="" >数据概览</a><a href="后台文章管理原型.html" class="" >文章管理</a><a href="后台用户管理原型.html" class="" >用户管理</a><a href="后台评论管理原型.html" class="active" aria-current="page">评论管理</a><a href="后台留言管理原型.html" class="" >留言管理</a><a href="后台系统管理原型.html" class="" >系统管理</a></nav><p class="muted">菜单隐藏不能代替服务端授权。原型导航不共享登录态。</p></aside><div class="workspace"><header><div><small>PAGE-013 · /admin/comments</small><h1>评论管理</h1><small>Personal Blog Console · 低保真设计</small></div><div class="userbox"><span class="avatar" aria-hidden="true">示</span><span id="userLabel">示例管理员</span><button type="button" data-destination="/">返回博客</button><button type="button" id="logout">退出（模拟）</button><a href="登录注册原型.html">登录原型</a></div></header><main class="main"><section class="controls"><strong>原型演示控件（不是正式业务入口）</strong><div class="row"><label for="identity">模拟身份</label><select id="identity"><option value="admin">管理员</option><option value="user">普通用户</option><option value="guest">未登录</option><option value="expired">Token过期</option><option value="disabled">用户禁用</option><option value="revoked">管理员角色撤销</option></select><label for="viewMode">读取状态</label><select id="viewMode"><option value="normal">正常数据</option><option value="loading">加载中</option><option value="empty">成功空数据</option><option value="failure">查询失败</option></select><label for="writeMode">写入结果</label><select id="writeMode"><option value="success">业务成功</option><option value="failure">写入失败</option><option value="conflict">状态冲突 / 重复请求失败演示</option></select><button id="retry" type="button">模拟重试读取</button><button id="resetDemo" type="button">恢复演示初始数据</button></div><small>默认管理员只是评审入口。跨HTML不共享身份或数据；不生成真实JWT。</small></section><div id="feedback" class="notice" role="status" aria-live="polite"></div><div id="accessState" class="state"></div><div id="protected"><section class="grid" style="grid-template-columns:repeat(3,1fr)" aria-label="三种审核状态统计"><button type="button" data-filter-status="PENDING" class="stat">待审核<strong id="stat_PENDING">—</strong></button><button type="button" data-filter-status="APPROVED" class="stat">已通过<strong id="stat_APPROVED">—</strong></button><button type="button" data-filter-status="REJECTED" class="stat">已拒绝<strong id="stat_REJECTED">—</strong></button></section><section class="panel"><h2>跨文章评论汇总</h2><form id="searchForm" class="row"><label for="keyword">评论内容关键词</label><input id="keyword" placeholder="输入关键词"><label for="statusFilter">审核状态</label><select id="statusFilter"><option value="PENDING">待审核</option><option value="APPROVED">已通过</option><option value="REJECTED">已拒绝</option></select><button type="submit" class="primary">查询</button></form><div class="row"><span id="selectedCount">已选0条</span><button id="approveBatch" type="button">批量通过</button><button id="rejectBatch" type="button">批量拒绝</button></div><p id="total"></p><div id="listState" class="state"></div><div id="tableWrap" class="table-wrap"><table><thead><tr><th><label for="allPage"><input id="allPage" type="checkbox"> 全选本页</label></th><th>评论用户</th><th>评论内容</th><th>所属文章</th><th>审核状态</th><th>提交时间</th><th>审核操作</th></tr></thead><tbody id="tableRows"></tbody></table></div><div id="pager" class="pager"><button type="button" id="prev">上一页</button><span id="pageLabel"></span><button type="button" id="next">下一页</button></div></section><section class="panel"><h2>公开可见集合预览（本文件内存，不连接前台）</h2><p id="countPreview"></p><div id="publicPreview"></div><button type="button" id="repeatReview">演示重复通过（计数不再增加）</button></section><section class="notice">范围差异：当前基线与接口仅提供审核，没有评论删除，也没有文章筛选条件。不把字段存在当作筛选或删除功能已获批准。<button id="deletionBoundary" type="button">查看删除范围待确认说明</button></section></div></main><footer>全部示例数据 · 无后端 / 数据库 / SMTP · 待检查，非正式系统验收</footer></div></div><dialog id="confirmDialog" aria-label="管理操作确认"><h2>操作确认（模拟）</h2><p id="confirmText"></p><div class="row"><button id="confirmYes" type="button" class="primary">确认</button><button type="button" data-close="confirmDialog">取消</button></div></dialog><script>
+'use strict';
+// PURE-BEGIN
+function permission(i){return i==='admin'?'allow':['user','revoked'].includes(i)?'403':'401';}
+function updateUser(rows,id,field,value,operatorId,fail){
+ if(fail)throw Error('模拟写入失败/冲突：原数据保持，不报告成功。');
+ const old=rows.find(u=>u.id===id);if(!old)throw Error('用户不存在。');
+ if(id===operatorId&&(field==='role'||value==='DISABLED'))throw Error('不能修改自身角色或禁用自身。');
+ if(!['role','status'].includes(field)||!(field==='role'?['USER','ADMIN']:['ACTIVE','DISABLED']).includes(value))throw Error('非法角色或状态。');
+ return rows.map(u=>u.id!==id?{...u}:{...u,[field]:value,version:u.version+(field==='status'&&value==='DISABLED'&&u.status!=='DISABLED'?1:0)});
+}
+function tokenAccess(user,version,adminOnly=false){if(!user||user.status!=='ACTIVE'||version!==user.version)return '401';return adminOnly&&user.role!=='ADMIN'?'403':'允许';}
+function visible(row,articles,isComment){return !row.deleted&&row.status==='APPROVED'&&(!isComment||articles.some(a=>a.id===row.articleId&&!a.deleted&&a.status==='PUBLISHED'));}
+function reviewBatch(rows,ids,target,articles,isComment,fail){
+ if(!Array.isArray(ids)||!ids.length||ids.length>100||ids.some(id=>!Number.isInteger(id)))throw Error('审核ID必须非空且最多100条有效ID。');
+ if(!['APPROVED','REJECTED'].includes(target))throw Error('非法审核状态。');
+ const unique=[...new Set(ids)];
+ if(unique.some(id=>!rows.some(r=>r.id===id&&!r.deleted)))throw Error('部分记录不存在；整批未改变。');
+ if(fail)throw Error('模拟审核失败/状态冲突；整批回滚，原状态和计数不变。');
+ const next=rows.map(r=>unique.includes(r.id)?{...r,status:target}:{...r});
+ const counts=Object.fromEntries(articles.filter(a=>!a.deleted).map(a=>[a.id,next.filter(r=>!r.deleted&&r.articleId===a.id&&r.status==='APPROVED').length]));
+ return {rows:next,counts:isComment?counts:{}};
+}
+function duplicateMessage(rows,userId,text){const value=text.trim();if(!value||value.length>500)return '内容应非空且最多500字符。';return rows.some(r=>r.userId===userId&&r.content===value)?'请勿重复提交相同留言：同用户+内容永久去重，审核状态及逻辑删除不解除。':'该组合未重复（仅校验演示，不创建留言）。';}
+// PURE-END
+const $=id=>document.getElementById(id),page=document.body.dataset.page;
+let identity='admin',readMode='normal',pageNo=1,selected=new Set(),pending=null;
+let users=Array.from({length:12},(_,i)=>({id:i+1,username:'demo'+(i+1),nickname:i===0?'当前操作管理员':'示例用户'+(i+1),email:'reader'+(i+1)+'@example.com',role:i<2?'ADMIN':'USER',status:i===2?'DISABLED':'ACTIVE',createdAt:'2026-10-'+String(12-i).padStart(2,'0')+' 09:00',version:i===2?1:0}));
+const articleFixtures=[{id:1,title:'示例文章：Vue页面设计',status:'PUBLISHED',deleted:false},{id:2,title:'示例文章：Spring Boot实践',status:'PUBLISHED',deleted:false},{id:3,title:'文章已删除',status:'PUBLISHED',deleted:true}];
+let rows=Array.from({length:18},(_,i)=>({id:i+1,userId:i%4+2,articleId:i%3+1,content:(page==='comments'?'评论':'留言')+'示例 '+(i+1)+'：课程设计交流。',status:i<12?'PENDING':i<15?'APPROVED':'REJECTED',createdAt:'2026-10-'+String(9-Math.floor(i/6)).padStart(2,'0')+' 10:'+String(59-i).padStart(2,'0'),deleted:false}));
+rows.push({id:99,userId:4,articleId:1,content:'历史去重示例',status:'REJECTED',createdAt:'2026-10-01 08:00',deleted:true});
+const initial=JSON.stringify({users,rows});
+let counters={},newSession=null;const oldVersions=Object.fromEntries(users.map(u=>[u.id,0]));
+function recalc(){counters=Object.fromEntries(articleFixtures.filter(a=>!a.deleted).map(a=>[a.id,rows.filter(r=>!r.deleted&&r.articleId===a.id&&r.status==='APPROVED').length]));}
+recalc();
+function note(s,error=false){$('feedback').textContent=s;$('feedback').classList.toggle('error',error);}
+function guard(){if(permission(identity)==='allow')return true;note('模拟'+permission(identity)+'：不能执行后台管理操作。',true);return false;}
+function gate(){
+ const ok=permission(identity)==='allow';$('protected').hidden=!ok;$('menu').hidden=!ok;$('accessState').hidden=ok;
+ $('userLabel').textContent={admin:'示例管理员（显示名）',user:'示例普通用户',guest:'未登录',expired:'登录状态失效',disabled:'账号已禁用',revoked:'管理员角色已撤销'}[identity];
+ $('accessState').textContent=ok?'':permission(identity)==='403'?'模拟403：不是当前有效ADMIN；隐藏后台菜单与保护内容，纠正角色显示；前端应返回公开前台，不把403当作退出。':'模拟401：未登录、Token失效或账号禁用；清失效身份并引导登录，公开文章仍可阅读。';
+ if(!ok){pending=null;document.querySelectorAll('dialog').forEach(d=>{if(d.open)d.close();});}
+ return ok;
+}
+function cell(row,text){const c=document.createElement('td');c.textContent=text;row.append(c);return c;}
+function button(cell,text,fn,disabled=false){const b=document.createElement('button');b.type='button';b.textContent=text;b.disabled=disabled;b.onclick=()=>{if(guard())fn();};cell.append(b);}
+function fail(){return $('writeMode').value!=='success';}
+function confirmAction(text,fn){if(!guard())return;pending=fn;$('confirmText').textContent=text;$('confirmYes').disabled=false;$('confirmDialog').showModal();}
+$('confirmYes').onclick=()=>{if(!pending||!guard())return;const fn=pending;pending=null;$('confirmYes').disabled=true;$('confirmDialog').close();fn();};
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>{pending=null;$(b.dataset.close).close();});
+$('confirmDialog').addEventListener('cancel',()=>{pending=null;});
+function changeQuery(){selected.clear();pageNo=1;render();}
+$('identity').onchange=()=>{identity=$('identity').value;selected.clear();render();note('仅切换演示身份；不是登录或服务端授权。');};
+$('viewMode').onchange=()=>{readMode=$('viewMode').value;selected.clear();render();};
+$('retry').onclick=()=>{readMode='normal';$('viewMode').value='normal';selected.clear();render();};
+$('resetDemo').onclick=()=>{const data=JSON.parse(initial);users=data.users;rows=data.rows;newSession=null;recalc();selected.clear();pageNo=1;identity='admin';readMode='normal';$('identity').value='admin';$('viewMode').value='normal';$('writeMode').value='success';pending=null;document.querySelectorAll('dialog').forEach(d=>{if(d.open)d.close();});render();note('仅复原本HTML模拟数据，跨文件不共享修改。');};
+$('logout').onclick=()=>{identity='guest';$('identity').value='guest';selected.clear();render();note('模拟本地退出；真实后台退出去向/login，本地登录原型链接可用。');};
+document.querySelectorAll('[data-destination]').forEach(b=>b.onclick=()=>{note('首页原型未制作，真实去向/；不访问业务站点。');});
+$('searchForm').onsubmit=e=>{e.preventDefault();changeQuery();};
+$('prev').onclick=()=>{pageNo--;selected.clear();render();};$('next').onclick=()=>{pageNo++;selected.clear();render();};
+function activeRows(){
+ const keyword=$('keyword').value.trim();
+ return page==='users'?users.filter(u=>!keyword||[u.username,u.nickname,u.email].some(v=>v.includes(keyword))):rows.filter(r=>!r.deleted&&r.status===$('statusFilter').value&&(!keyword||r.content.includes(keyword)));
+}
+function render(){
+ if(!gate())return;
+ const ok=readMode==='normal';$('tableWrap').hidden=!ok;$('pager').hidden=!ok;$('listState').hidden=ok;
+ $('listState').textContent=readMode==='loading'?'正在加载（模拟）…':readMode==='empty'?'查询成功：暂无匹配记录（模拟空集）。':'查询失败（模拟），不是成功空结果。';
+ $('total').textContent=ok?'':readMode==='empty'?'共0条（模拟成功空集）':'总数未知';
+ if(page!=='users'){
+  for(const status of ['PENDING','APPROVED','REJECTED'])$('stat_'+status).textContent=ok?String(rows.filter(r=>!r.deleted&&r.status===status).length):readMode==='empty'?'0':'未知';
+  $('allPage').checked=false;$('allPage').disabled=!ok;updateSelected();renderVisibility();
+ }
+ if(!ok)return;
+ const data=activeRows(),pages=Math.max(1,Math.ceil(data.length/10));pageNo=Math.min(pageNo,pages);$('total').textContent='共'+data.length+'条模拟记录';
+ $('tableRows').replaceChildren();const current=data.slice((pageNo-1)*10,pageNo*10);
+ for(const record of current){
+  const tr=document.createElement('tr');
+  if(page==='users')renderUser(tr,record);else renderReview(tr,record);$('tableRows').append(tr);
+ }
+ if(!current.length){const tr=document.createElement('tr');const c=cell(tr,'查询成功：没有匹配记录。');c.colSpan=page==='users'?6:page==='comments'?7:6;$('tableRows').append(tr);}
+ $('pageLabel').textContent='第'+pageNo+'/'+pages+'页 · 每页10条';$('prev').disabled=pageNo<=1;$('next').disabled=pageNo>=pages;
+ if(page==='users')renderSession();
+}
+function renderUser(tr,u){
+ cell(tr,u.nickname+'\n@'+u.username+(u.id===1?'（本人）':''));cell(tr,u.email);
+ const role=cell(tr,''),s=document.createElement('select');s.setAttribute('aria-label',u.username+'角色');
+ for(const value of ['USER','ADMIN']){const o=document.createElement('option');o.value=value;o.textContent=value==='ADMIN'?'管理员':'普通用户';s.append(o);}
+ s.value=u.role;s.disabled=u.id===1;s.onchange=()=>{const target=s.value;s.value=u.role;confirmAction('确认将'+u.username+'角色改为'+target+'？下一次鉴权按当前角色，不按旧缓存授权。',()=>mutateUser(u.id,'role',target));};role.append(s);
+ cell(tr,u.status==='ACTIVE'?'正常':'已禁用');cell(tr,u.createdAt);
+ const actions=cell(tr,'');button(actions,u.status==='ACTIVE'?'禁用':'启用',()=>confirmAction('确认'+(u.status==='ACTIVE'?'禁用':'启用')+u.username+'？禁用废除旧Token，启用后旧Token也不能恢复；保留历史通过内容。',()=>mutateUser(u.id,'status',u.status==='ACTIVE'?'DISABLED':'ACTIVE')),u.id===1);
+}
+function mutateUser(id,field,value){
+ if(!guard())return;try{users=updateUser(users,id,field,value,1,fail());render();note('用户'+(field==='role'?'角色':'状态')+'更新成功（内存模拟）。');}catch(e){note(e.message,true);}
+}
+function renderSession(){
+ const u=users.find(v=>v.id===Number($('sessionUser').value))||users[3];
+ const old=tokenAccess(u,oldVersions[u.id]),newResult=newSession&&newSession.userId===u.id?tokenAccess(u,newSession.version,true):'尚未重新登录';
+ $('sessionState').textContent='目标 '+u.username+'：'+u.status+' / '+u.role+'\n禁用前模拟令牌：'+old+'；模拟新会话访问后台：'+newResult+'。\n这里只比较演示版本数，不创建JWT。';
+}
+function renderReview(tr,r){
+ const pick=cell(tr,''),box=document.createElement('input');box.type='checkbox';box.checked=selected.has(r.id);box.setAttribute('aria-label','选择记录'+r.id);
+ box.onchange=()=>{box.checked?selected.add(r.id):selected.delete(r.id);updateSelected();};pick.append(box);
+ const u=users.find(u=>u.id===r.userId);cell(tr,(u?.nickname||'未知用户')+'\n@'+(u?.username||'未知')+(u?.status==='DISABLED'?'（已禁用，历史通过内容保留）':''));
+ cell(tr,r.content);
+ if(page==='comments'){const c=cell(tr,''),a=articleFixtures.find(a=>a.id===r.articleId);if(a&&!a.deleted){const link=document.createElement('a');link.href='文章详情原型.html?id='+a.id;link.target='_blank';link.rel='noopener';link.textContent=a.title;c.append(link);}else c.textContent='文章已删除（不提供公开详情）';}
+ cell(tr,{PENDING:'待审核',APPROVED:'已通过',REJECTED:'已拒绝'}[r.status]);cell(tr,r.createdAt);
+ const actions=cell(tr,'');if(r.status!=='APPROVED')button(actions,'通过',()=>requestReview([r.id],'APPROVED'));if(r.status!=='REJECTED')button(actions,'拒绝',()=>requestReview([r.id],'REJECTED'));
+}
+function updateSelected(){$('selectedCount').textContent='已选'+selected.size+'条（仅当前页）';$('approveBatch').disabled=!selected.size||readMode!=='normal';$('rejectBatch').disabled=!selected.size||readMode!=='normal';}
+function requestReview(ids,target){if(!ids.length){note('请先选择记录。',true);return;}confirmAction('确认'+(target==='APPROVED'?'通过':'拒绝')+ids.length+'条？整批成功或整批失败。已审核可更改，相同状态幂等。',()=>applyReview(ids,target));}
+function applyReview(ids,target){
+ if(!guard())return;
+ try{const result=reviewBatch(rows,ids,target,articleFixtures,page==='comments',fail());rows=result.rows;if(page==='comments')counters=result.counts;selected.clear();render();note('审核完成（内存模拟），选择已清空并刷新；前台仅通过内容可见。');}
+ catch(e){note(e.message,true);}
+}
+function renderVisibility(){
+ const publicRows=rows.filter(r=>visible(r,articleFixtures,page==='comments'));$('publicPreview').replaceChildren();
+ for(const r of publicRows){const p=document.createElement('p');p.textContent=r.content+(users.find(u=>u.id===r.userId)?.status==='DISABLED'?' 【禁用用户历史通过内容，仍可见】':'');$('publicPreview').append(p);}
+ if(!publicRows.length)$('publicPreview').textContent='公开集合为空（内存模拟）。';
+ $('countPreview').textContent=page==='comments'?'有效文章评论数（模拟）：'+JSON.stringify(counters)+'；文章已删除时其评论不公开。':'待审核与拒绝不公开；账号禁用不自动隐藏历史通过留言。';
+}
+if(page==='users'){
+ $('sessionUser').onchange=()=>{newSession=null;renderSession();};
+ $('probeOld').onclick=()=>{if(guard())renderSession();};
+ $('newLogin').onclick=()=>{if(!guard())return;const u=users.find(u=>u.id===Number($('sessionUser').value));
+ if(u.status==='DISABLED'){note('该账号已被禁用，暂时无法登录（模拟）。',true);return;}
+ newSession={userId:u.id,version:u.version};renderSession();note('已模拟重新登录取得新会话，不生成真实Token。');};
+}else{
+ $('statusFilter').onchange=changeQuery;
+ document.querySelectorAll('[data-filter-status]').forEach(b=>b.onclick=()=>{$('statusFilter').value=b.dataset.filterStatus;changeQuery();});
+ $('allPage').onchange=()=>{selected.clear();if($('allPage').checked)activeRows().slice((pageNo-1)*10,pageNo*10).forEach(r=>selected.add(r.id));render();$('allPage').checked=selected.size>0;};
+ $('approveBatch').onclick=()=>requestReview([...selected],'APPROVED');$('rejectBatch').onclick=()=>requestReview([...selected],'REJECTED');
+ $('repeatReview').onclick=()=>{if(guard()){const r=rows.find(r=>!r.deleted&&r.status==='APPROVED');if(r)requestReview([r.id],'APPROVED');else note('暂无已通过记录，请先通过一条。');}};
+ $('deletionBoundary').onclick=()=>note('范围待确认：当前SRS及API只允许通过/拒绝审核，没有评论或留言删除。本轮不模拟删除成功，不决定逻辑/物理删除。',true);
+ if(page==='messages'){
+ $('dedupDemo').onclick=()=>{if(!guard())return;const state=$('duplicateState').value;const probe={userId:4,content:'历史去重示例',status:state==='DELETED'?'REJECTED':state,deleted:state==='DELETED'};const result=duplicateMessage([probe],4,' 历史去重示例 ');$('duplicateResult').textContent=result+' 模拟记录数不变，没有发布新留言。';};
+ }
+}
+render();
+</script></body></html>
+

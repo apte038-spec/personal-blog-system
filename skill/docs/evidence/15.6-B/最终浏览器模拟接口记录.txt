@@ -1,0 +1,10 @@
+{"fixtureRequest":"/api/public/articles/1","method":"GET","status":200}
+{"fixtureRequest":"/api/public/articles/adjacent/1","method":"GET","status":200}
+{"fixtureRequest":"/api/public/site-config","method":"GET","status":200}
+{"fixtureRequest":"/api/public/articles/1/comments","method":"GET","status":200}
+{"fixtureRequest":"/api/articles/1/like","method":"GET","status":401}
+{"fixtureRequest":"/api/auth/me","method":"GET","status":401}
+{"fixtureRequest":"/api/public/articles/1","method":"GET","status":200}
+{"fixtureRequest":"/api/public/articles/adjacent/1","method":"GET","status":200}
+{"fixtureRequest":"/api/public/site-config","method":"GET","status":200}
+{"fixtureRequest":"/api/public/articles/1/comments","method":"GET","status":200}

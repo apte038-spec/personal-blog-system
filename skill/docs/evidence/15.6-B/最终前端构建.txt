@@ -1,0 +1,35 @@
+✓ 2245 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                             0.55 kB │ gzip:   0.32 kB
+dist/assets/index-CHzJyw8g.css            380.63 kB │ gzip:  52.67 kB
+dist/assets/NotFound-C8pPBDy_.js            0.52 kB │ gzip:   0.45 kB
+dist/assets/ArticleCard-D_HyC_A0.js         1.26 kB │ gzip:   0.74 kB
+dist/assets/About-DLfiHPNp.js               1.26 kB │ gzip:   1.08 kB
+dist/assets/blog-Dijf7gYC.js                2.16 kB │ gzip:   0.64 kB
+dist/assets/PublicLayout-BF2GzmtS.js        2.31 kB │ gzip:   1.25 kB
+dist/assets/Home-BMhbM-nF.js                2.44 kB │ gzip:   1.41 kB
+dist/assets/Message-BUcsok_J.js             2.44 kB │ gzip:   1.52 kB
+dist/assets/AdminLayout-DpHIroZ6.js         2.92 kB │ gzip:   1.26 kB
+dist/assets/Login-C2MS1ycU.js               3.04 kB │ gzip:   1.25 kB
+dist/assets/ArticleList-DoygmBXS.js         3.15 kB │ gzip:   1.60 kB
+dist/assets/ForgotPassword-odKHDOMx.js      3.54 kB │ gzip:   1.72 kB
+dist/assets/AdminDashboard-CS15gDRJ.js      3.66 kB │ gzip:   1.98 kB
+dist/assets/UserManage-vPHaclz5.js          3.99 kB │ gzip:   2.10 kB
+dist/assets/MessageManage-B7wMlxAs.js       4.70 kB │ gzip:   2.17 kB
+dist/assets/ArticleDetail-BFIfsPVK.js       4.80 kB │ gzip:   2.32 kB
+dist/assets/CommentManage-LpID3dOX.js       4.94 kB │ gzip:   2.27 kB
+dist/assets/Profile-XcPY5e-u.js             6.40 kB │ gzip:   2.74 kB
+dist/assets/ArticleManage-CNQoRSaA.js       6.80 kB │ gzip:   2.84 kB
+dist/assets/SystemManage-DPGWnSQ8.js        7.29 kB │ gzip:   2.30 kB
+dist/assets/index-DqKQTEGB.js              61.99 kB │ gzip:  23.48 kB
+dist/assets/markdown-CMaVl6wJ.js           68.92 kB │ gzip:  23.31 kB
+dist/assets/vue-CWenE_Wy.js               111.34 kB │ gzip:  43.43 kB
+dist/assets/element-_z2ORpTO.js           945.00 kB │ gzip: 303.68 kB
+dist/assets/charts-Bb6yjXMn.js          1,034.91 kB │ gzip: 343.41 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 14.34s
