@@ -33,7 +33,14 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   const auth = useAuthStore(pinia)
-  try { await auth.restoreSession() } catch { if (to.meta.requiresAuth) return { name: 'login', query: { redirect: to.fullPath } } }
+  try { await auth.restoreSession({ force: Boolean(to.meta.requiresAuth) }) }
+  catch (error) {
+    if (to.meta.requiresAuth) {
+      if (error.status === 401 || !auth.isAuthenticated) return { name: 'login', query: { redirect: to.fullPath } }
+      if (error.status === 403) return { name: 'home' }
+      return false // Cannot verify identity during an outage: do not enter the protected page.
+    }
+  }
   if (to.meta.requiresAuth && !auth.isAuthenticated) return { name: 'login', query: { redirect: to.fullPath } }
   if (to.meta.roles?.length && !to.meta.roles.includes(auth.user?.role)) return { name: 'home' }
   if (to.meta.guestOnly && auth.isAuthenticated) return { name: auth.isAdmin ? 'admin' : 'home' }

@@ -10,22 +10,33 @@ import { useAuthStore } from '../../store/auth'
 const route = useRoute(), router = useRouter(), auth = useAuthStore()
 const article = ref(null), adjacent = ref({}), comments = ref([]), commentText = ref('')
 const loading = ref(true), submitting = ref(false), liked = ref(false), socialAvailable = ref(true)
+const likeStateKnown = ref(false)
 const renderedContent = computed(() => DOMPurify.sanitize(marked.parse(article.value?.content || '')))
+let loadVersion = 0
 
 async function load() {
-  loading.value = true; socialAvailable.value = true
+  const version = ++loadVersion
+  loading.value = true; socialAvailable.value = true; liked.value = false; likeStateKnown.value = false
+  article.value = null; comments.value = []; adjacent.value = {}
   try {
     const id = route.params.id
     const [detail, near] = await Promise.all([publicApi.article(id), publicApi.adjacent(id).catch(() => ({}))])
+    if (version !== loadVersion) return
     article.value = detail; adjacent.value = near
-    const result = await interactionApi.comments(id).catch(() => { socialAvailable.value = false; return [] })
-    comments.value = result.records || result || []
-    if (auth.isAuthenticated) {
-      const state = await interactionApi.likeState(id).catch(() => null)
-      liked.value = Boolean(state?.liked)
-    }
-  } catch (error) { ElMessage.error(error.message); router.push('/articles') }
-  finally { loading.value = false }
+    loading.value = false // Public reading does not wait for optional identity requests.
+    const identityToken = auth.token
+    await Promise.all([
+      interactionApi.comments(id).then((result) => {
+        if (version === loadVersion) comments.value = result.records || result || []
+      }).catch(() => { if (version === loadVersion) socialAvailable.value = false }),
+      auth.isAuthenticated ? interactionApi.likeState(id).then((state) => {
+        if (version === loadVersion && auth.isAuthenticated && auth.token === identityToken) {
+          liked.value = Boolean(state.liked); likeStateKnown.value = true
+        }
+      }).catch(() => {}) : Promise.resolve(),
+    ])
+  } catch (error) { if (version === loadVersion) { ElMessage.error(error.message); router.push('/articles') } }
+  finally { if (version === loadVersion) loading.value = false }
 }
 async function toggleLike() {
   if (!auth.isAuthenticated) return router.push({ name: 'login', query: { redirect: route.fullPath } })
@@ -48,11 +59,11 @@ watch(() => route.params.id, load, { immediate: true })
     <article v-if="article" class="article-paper">
       <header class="article-header"><div class="post-meta"><span>{{ article.categoryName }}</span><time>{{ article.publishedAt?.slice(0,10) }}</time></div><h1>{{ article.title }}</h1><p class="article-summary">{{ article.summary }}</p><div class="article-stats"><span>{{ article.authorName }}</span><span>◉ {{ article.viewCount }} 阅读</span><span>♥ {{ article.likeCount }} 喜欢</span><span>✦ {{ article.commentCount }} 评论</span></div><div class="tag-row"><span v-for="tag in article.tags" :key="tag.id"># {{ tag.name }}</span></div></header>
       <div class="markdown-body" v-html="renderedContent"></div>
-      <footer class="article-actions"><button class="like-button" :class="{ liked }" @click="toggleLike">{{ liked ? '♥ 已喜欢' : '♡ 喜欢这篇文章' }}</button></footer>
+      <footer class="article-actions"><button class="like-button" :class="{ liked: auth.isAuthenticated && liked }" :disabled="auth.isAuthenticated && !likeStateKnown" @click="toggleLike">{{ auth.isAuthenticated && liked ? '♥ 已喜欢' : '♡ 喜欢这篇文章' }}</button><span v-if="auth.isAuthenticated && !likeStateKnown">点赞状态暂不可用，请刷新重试；正文仍可阅读。</span></footer>
     </article>
 
     <nav v-if="article" class="adjacent-nav"><router-link v-if="adjacent.previous" :to="`/articles/${adjacent.previous.id}`"><small>上一篇</small><strong>{{ adjacent.previous.title }}</strong></router-link><span v-else></span><router-link v-if="adjacent.next" :to="`/articles/${adjacent.next.id}`"><small>下一篇</small><strong>{{ adjacent.next.title }}</strong></router-link></nav>
 
-    <section v-if="article" class="comment-section"><div class="section-heading"><div><span class="eyebrow">DISCUSSION</span><h2>评论</h2></div><span>{{ comments.length }} 条</span></div><div class="comment-editor"><el-input v-model="commentText" type="textarea" :rows="4" maxlength="500" show-word-limit placeholder="写下你的想法…"/><div><span v-if="!auth.isAuthenticated">登录后参与讨论</span><el-button type="primary" :loading="submitting" @click="submitComment">发表评论</el-button></div></div><div class="comment-list"><div v-for="item in comments" :key="item.id" class="comment-item"><div class="avatar">{{ (item.nickname || item.user?.nickname || '访').slice(0,1) }}</div><div><strong>{{ item.nickname || item.user?.nickname || '访客' }}</strong><time>{{ item.createdAt?.replace('T',' ').slice(0,16) }}</time><p>{{ item.content }}</p></div></div><el-empty v-if="!comments.length" description="还没有评论，来聊聊吧"/></div></section>
+    <section v-if="article" class="comment-section"><div class="section-heading"><div><span class="eyebrow">DISCUSSION</span><h2>评论</h2></div><span>{{ comments.length }} 条</span></div><div class="comment-editor"><el-input v-model="commentText" type="textarea" :rows="4" maxlength="500" show-word-limit placeholder="写下你的想法…"/><div><span v-if="!auth.isAuthenticated">登录后参与讨论</span><el-button type="primary" :loading="submitting" @click="submitComment">发表评论</el-button></div></div><div class="comment-list"><div v-for="item in comments" :key="item.id" class="comment-item"><div class="avatar">{{ (item.nickname || item.user?.nickname || '访').slice(0,1) }}</div><div><strong>{{ item.nickname || item.user?.nickname || '访客' }}</strong><time>{{ item.createdAt?.replace('T',' ').slice(0,16) }}</time><p>{{ item.content }}</p></div></div><p v-if="!socialAvailable">评论加载失败，请稍后重试。</p><el-empty v-else-if="!comments.length" description="还没有评论，来聊聊吧"/></div></section>
   </div>
 </template>
